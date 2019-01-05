@@ -1,0 +1,28 @@
+export PATH=/opt/cmake/bin:/opt/ninja:$HOME/.local/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/.local/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+
+PS3="Which MRChem would you like to try out today? Please type your choice (serial omp quit): "
+options=("serial" "omp" "quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "serial")
+            echo "Setting up for serial MRChem runs, that is:"
+            echo "export PATH=/opt/mrchem_serial/bin:$PATH"
+            export PATH=/opt/mrchem_serial/bin:$PATH
+            ;;
+        "omp")
+            echo "Setting up for OpenMP-parallel MRChem runs, that is:"
+            echo "export PATH=/opt/mrchem_omp/bin:$PATH"
+            export PATH=/opt/mrchem_omp/bin:$PATH
+            ;;
+        "quit")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+
+echo "To use another MRChem:"
+echo "  1. Remove the current version from PATH"
+echo "  2. Add the other version on PATH"

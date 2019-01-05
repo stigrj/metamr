@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+# give sudo permission for mightybuilder user
+# user creation is postponed to the entrypoint,
+# so we can create a user with the same id as the host
+echo 'mightybuilder ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Install tini
+TINI_VERSION="v0.18.0"
+curl -Ls https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini -o /opt/docker/bin/tini
+chmod +x /opt/docker/bin/tini
+
+# Install recent CMake
+CMAKE_VERSION="3.13.2"
+cmake_url="https://cmake.org/files/v${CMAKE_VERSION%.*}/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz"
+target_path="/opt/cmake"
+mkdir -p $target_path && \
+    curl -Ls $cmake_url | tar -xz -C $target_path --strip-components=1 && \
+    rm -rf cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz && \
+    export PATH="/opt/cmake/bin:${PATH}"
+echo '-- Done with CMake!'
+
+# Install Ninja
+Ninja_URL="https://github.com/Kitware/ninja/releases/download/v1.8.2.g81279.kitware.dyndep-1.jobserver-1/ninja-1.8.2.g81279.kitware.dyndep-1.jobserver-1_x86_64-linux-gnu.tar.gz"
+target_path="/opt/ninja"
+mkdir -p $target_path && \
+    curl -Ls $Ninja_URL | tar -xz -C $target_path --strip-components=1 && \
+    rm -rf ninja-1.8.2.g81279.kitware.dyndep-1.jobserver-1_x86_64-linux-gnu.tar.gz && \
+    export PATH="/opt/ninja:${PATH}"
+echo '-- Done with Ninja!'
+
+# Install Pipenv
+pip3 install --upgrade pip pipenv
+echo '-- Done with Pipenv!'
+
+# Create lucky group
+groupadd -g 32766 lucky
+
+# Clone MRChem
+git clone --recursive -b master --single-branch https://github.com/mrchemsoft/mrchem.git
+cd mrchem || exit
+# Install Python dependencies in a virtual environment
+pipenv install --three
+
+# Serial build
+## Configure
+pipenv run python setup \
+       build_serial \
+       --type=release \
+       --cxx=g++ \
+       --generator=Ninja \
+       --cmake-options="-DCMAKE_C_COMPILER=gcc" \
+       --prefix=/opt/mrchem_serial
+## Build
+pipenv run cmake --build build_serial --target install
+## Test, in a subshell
+(
+    cd build_serial || exit
+    pipenv run ctest --output-on-failure --verbose
+)
+## mrchem_serial under the lucky group
+chgrp -R lucky /opt/mrchem_serial && chmod -R g=u /opt/mrchem_serial
+
+# OMP-parallel build
+## Configure
+pipenv run python setup \
+       build_omp \
+       --type=release \
+       --cxx=g++ \
+       --omp \
+       --generator=Ninja \
+       --cmake-options="-DCMAKE_C_COMPILER=gcc" \
+       --prefix=/opt/mrchem_omp
+## Build
+pipenv run cmake --build build_omp --target install
+## Test, in a subshell
+(
+    cd build_omp || exit
+    env OMP_NUM_THREADS=2 pipenv run ctest --output-on-failure --verbose
+)
+## mrchem_omp under the lucky group
+chgrp -R lucky /opt/mrchem_omp && chmod -R g=u /opt/mrchem_omp
