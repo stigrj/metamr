@@ -1,6 +1,16 @@
 export PATH=/opt/cmake/bin:/opt/ninja:$HOME/.local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 
+# Copy the li_pol_lda test as example in HOME
+echo "Example input for LDA static polarizability of lithium available in $HOME/li_pol_lda"
+mkdir -p $HOME/li_pol_lda
+cp /mrchem/test/li_pol_lda/mrchem.inp  $HOME/li_pol_lda/mrchem.inp
+
+# Copy the h2o_energy_blyp test as example in HOME
+echo "Example input for BLYP energy of water available in $HOME/h2o_energy_blyp"
+mkdir -p $HOME/h2o_energy_blyp
+cp /mrchem/test/h2o_energy_blyp/mrchem.inp  $HOME/h2o_energy_blyp/mrchem.inp
+
 PS3="Which MRChem would you like to try out today?"
 options=("serial" "omp" "quit")
 select opt in "${options[@]}"
@@ -25,6 +35,12 @@ do
     esac
 done
 
+echo "You can now run with: mrchem input.inp"
+echo "Happy computing!!!"
 echo "To use another MRChem:"
 echo "  1. Remove the current version from PATH"
 echo "  2. Add the other version on PATH"
+
+echo "If you encounter problems, please file an issue:"
+echo "  1. At https://github.com/MRChemSoft/metamr/issues for this Docker image"
+echo "  2. At https://github.com/MRChemSoft/mrchem/issues for MRChem"

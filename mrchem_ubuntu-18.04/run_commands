@@ -36,9 +36,11 @@ echo '-- Done with Pipenv!'
 # Create lucky group
 groupadd -g 32766 lucky
 
-# Clone MRChem
+# Clone MRChem master and immediately switch to known-to-work SHA1
+# This affords a tag of sorts
 git clone --recursive -b master --single-branch https://github.com/mrchemsoft/mrchem.git
 cd mrchem || exit
+git reset --hard 49282a573e9dbe7c17815d3dcbb7674e3bf7332b
 # Install Python dependencies in a virtual environment
 pipenv install --three
 
