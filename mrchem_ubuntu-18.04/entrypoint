@@ -14,6 +14,14 @@ chown -R mightybuilder:mightybuilder $HOME
 cp -R /etc/skel $HOME && chown -R mightybuilder:mightybuilder $HOME/skel && (ls -A1 $HOME/skel | xargs -I {} mv -n $HOME/skel/{} $HOME) && rm -Rf $HOME/skel
 cd $HOME || exit
 
+# Copy the li_pol_lda test as example in HOME
+mkdir -p $HOME/work/li_pol_lda
+cp /mrchem/test/li_pol_lda/mrchem.inp $HOME/work/li_pol_lda/mrchem.inp
+
+# Copy the h2o_energy_blyp test as example in HOME
+mkdir -p $HOME/work/h2o_energy_blyp
+cp /mrchem/test/h2o_energy_blyp/mrchem.inp $HOME/work/h2o_energy_blyp/mrchem.inp
+
 # Source everything that needs to be.
 # shellcheck disable=SC1091
 . /opt/docker/bin/entrypoint_source
