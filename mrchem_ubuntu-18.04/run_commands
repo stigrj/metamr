@@ -36,12 +36,11 @@ echo '-- Done with Pipenv!'
 # Create lucky group
 groupadd -g 32766 lucky
 
-# Clone MRChem master and immediately switch to known-to-work SHA1
-# This affords a tag of sorts
-git clone --recursive -b master --single-branch https://github.com/mrchemsoft/mrchem.git
+# Download tagged version of MRChem
+MRChem_VERSION="0.2.0"
+git clone -b "v${MRChem_VERSION}" --single-branch --depth 1 https://github.com/MRChemSoft/mrchem.git
 cd mrchem || exit
 chgrp -R lucky /mrchem && chmod -R g=u /mrchem
-git reset --hard f04d4a00e02e33326d6e8c1f43729a5c756c7a38
 # Install Python dependencies in a virtual environment
 pipenv install --three
 
