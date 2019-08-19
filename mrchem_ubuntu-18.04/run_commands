@@ -37,7 +37,7 @@ echo '-- Done with Pipenv!'
 groupadd -g 32766 lucky
 
 # Download tagged version of MRChem
-MRChem_VERSION="0.2.0"
+MRChem_VERSION="0.2.1"
 git clone -b "v${MRChem_VERSION}" --single-branch --depth 1 https://github.com/MRChemSoft/mrchem.git
 cd mrchem || exit
 chgrp -R lucky /mrchem && chmod -R g=u /mrchem
