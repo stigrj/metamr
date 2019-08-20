@@ -10,17 +10,19 @@ export USER=mightybuilder
 export LOGNAME=mightybuilder
 export MAIL=/var/spool/mail/mightybuilder
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/mightybuilder/bin
-chown -R mightybuilder:mightybuilder $HOME
 cp -R /etc/skel $HOME && chown -R mightybuilder:mightybuilder $HOME/skel && (ls -A1 $HOME/skel | xargs -I {} mv -n $HOME/skel/{} $HOME) && rm -Rf $HOME/skel
 cd $HOME || exit
 
 # Copy the h2_scf_hf test as example in HOME
-mkdir -p $HOME/work/h2_scf_hf
-cp /mrchem/tests/h2_scf_hf/mrchem.inp $HOME/work/h2_scf_hf/mrchem.inp
+mkdir -p $HOME/examples/h2
+cp /mrchem/tests/h2_scf_hf/mrchem.inp $HOME/examples/h2/mrchem.inp
 
 # Copy the h2o_energy_blyp test as example in HOME
-mkdir -p $HOME/work/h2o_energy_blyp
-cp /mrchem/tests/h2o_energy_blyp/mrchem.inp $HOME/work/h2o_energy_blyp/mrchem.inp
+mkdir -p $HOME/examples/h2o
+cp /mrchem/tests/h2o_energy_blyp/mrchem.inp $HOME/examples/h2o/mrchem.inp
+cp -R /mrchem/tests/h2o_energy_blyp/initial_guess $HOME/examples/h2o/initial_guess
+
+chown -R mightybuilder:mightybuilder $HOME
 
 # Source everything that needs to be.
 # shellcheck disable=SC1091
