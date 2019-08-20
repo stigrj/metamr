@@ -25,15 +25,26 @@ do
     esac
 done
 
-echo "You can now run with: mrchem input.inp"
-echo "Example input for Hartree-Fock SCF energy H2 available in $HOME/h2_scf_hf"
-echo "Example input for BLYP energy of water available in $HOME/h2o_energy_blyp"
-echo "Happy computing!!!"
-
+echo " "
+echo "To activate the correct Python environment:"
+echo "  $ cd /mrchem"
+echo "  $ pipenv install"
+echo "  $ pipenv shell"
+echo " "
+echo "You can now run with:"
+echo "  $ mrchem mrchem.inp"
+echo " "
+echo "Example input files are available in $HOME/examples/:
+echo "  1. Hartree-Fock SCF of H2: $HOME/examples/h2/"
+echo "  2. BLYP initial energy (no SCF) of water: $HOME/examples/h2o/"
+echo " "
+echo "See MRChem manual for more input details:"
+echo "  https://mrchem.readthedocs.io/en/latest/mrchem_manual.html"
+echo " "
 echo "To use another version of MRChem:"
 echo "  1. Remove the current version from PATH"
 echo "  2. Add the other version to PATH"
-
+echo " "
 echo "If you encounter problems, please file an issue:"
 echo "  1. At https://github.com/MRChemSoft/metamr/issues for this Docker image"
 echo "  2. At https://github.com/MRChemSoft/mrchem/issues for MRChem"
