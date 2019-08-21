@@ -34,7 +34,7 @@ echo " "
 echo "You can now run with:"
 echo "  $ mrchem mrchem.inp"
 echo " "
-echo "Example input files are available in $HOME/examples/:
+echo "Example input files are available in $HOME/examples/:"
 echo "  1. Hartree-Fock SCF of H2: $HOME/examples/h2/"
 echo "  2. BLYP initial energy (no SCF) of water: $HOME/examples/h2o/"
 echo " "
