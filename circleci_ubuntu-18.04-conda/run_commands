@@ -15,6 +15,7 @@ echo '-- Done with Conda!'
 
 # Create lucky group
 groupadd -g 32766 lucky
+# Give lucky group access to conda
 chgrp -R lucky /opt/conda && chmod -R g=u /opt/conda
 
 # create user merzbow
