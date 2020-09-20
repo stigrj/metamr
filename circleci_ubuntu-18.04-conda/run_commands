@@ -31,4 +31,5 @@ export MAIL=/var/spool/mail/merzbow
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/merzbow/bin
 chown -R merzbow:merzbow $HOME
 cp -R /etc/skel $HOME && chown -R merzbow:merzbow $HOME/skel && (ls -A1 $HOME/skel | xargs -I {} mv -n $HOME/skel/{} $HOME) && rm -Rf $HOME/skel
+ssh-keygen -t rsa -b 4096 -N "" -f "$HOME/.ssh/id_rsa"
 cd $HOME || exit
