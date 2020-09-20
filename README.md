@@ -6,7 +6,7 @@ Meta-stuff for the MR family.
 
 The images are organized by folder.
 
-The image used on CircleCI for testing is built automatically on [Quay.io](quay.io)
+The image used on CircleCI for testing is built automatically on [Quay.io](https://quay.io/organization/metamr)
 You can download it locally with:
 
     docker pull quay.io/metamr/circleci_ubuntu-18.04
