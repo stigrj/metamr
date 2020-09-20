@@ -4,7 +4,9 @@ Meta-stuff for the MR family.
 
 ## Docker images
 
-The images are organized by folder.
+The images are organized by folder:
+  - `circleci_ubuntu-18.04` is the image used to test MRChem and MRCPP [![Docker Repository on Quay](https://quay.io/repository/metamr/circleci_ubuntu-18.04/status "Docker Repository on Quay")](https://quay.io/repository/metamr/circleci_ubuntu-18.04)
+  - `circleci_ubuntu-18.04-conda` is the image used to test VAMPyR [![Docker Repository on Quay](https://quay.io/repository/metamr/circleci_ubuntu-18.04-conda/status "Docker Repository on Quay")](https://quay.io/repository/metamr/circleci_ubuntu-18.04-conda)
 
 The image used on CircleCI for testing is built automatically on [Quay.io](https://quay.io/organization/metamr)
 You can download it locally with:
