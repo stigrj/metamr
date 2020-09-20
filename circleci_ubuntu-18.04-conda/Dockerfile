@@ -5,21 +5,21 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 # Add a timestamp for the build. Also, bust the cache.
-ADD http://worldclockapi.com/api/json/utc/now /opt/docker/etc/timestamp
+ADD http://worldtimeapi.org/api/ip /opt/docker/etc/timestamp
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get --yes -qq update \
  && apt-get --yes -qq upgrade \
  && apt-get --yes -qq install \
-    build-essential \
-    bzip2 \
-    cpio \
-    curl \
-    g++ \
-    gcc \
-    git \
-    wget \
-    zlib1g-dev \
+                      build-essential \
+                      bzip2 \
+                      cpio \
+                      curl \
+                      g++ \
+                      gcc \
+                      git \
+                      wget \
+                      zlib1g-dev \
  && apt-get --yes -qq clean \
  && rm -rf /var/lib/apt/lists/*
 
